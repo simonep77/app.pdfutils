@@ -1,2 +1,2 @@
 # app.pdfutils
-Simple PDF Utils
+Collezione di utilità PDF di utilizzo comune
