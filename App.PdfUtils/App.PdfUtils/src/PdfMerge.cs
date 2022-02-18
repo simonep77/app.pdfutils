@@ -86,6 +86,23 @@ namespace App.PdfUtils
             }
         }
 
+        /// <summary>
+        /// Aggiunge un immagine come pagina al documento
+        /// </summary>
+        /// <param name="buffer"></param>
+        public void AddPdfFromImageBuffer(byte[] buffer, params int[] pages)
+        {
+            var conv = new PdfConvert();
+
+            using (var ms = new MemoryStream())
+            {
+                conv.ImageBufferToPdfStream(buffer, ms);
+                ms.Position = 0;
+
+                this.AddPdfFromStream(ms);
+            }
+
+        }
 
         /// <summary>
         /// Aggiunge PDF da buffer, e' possibile specificare e pagine da aggiungere. Se pages null verranno incluse tutte le pagine
@@ -150,6 +167,32 @@ namespace App.PdfUtils
             this.NumDocumentsMerged++;
         }
 
+
+        /// <summary>
+        /// Aggiunge una pagina con il testo specificato
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="margintop"></param>
+        /// <param name="marginleft"></param>
+        public void AddBlankPageWithText(string text, float margintop = 20f, float marginleft = 20f, bool alignCenter = false)
+        {
+            //Aggiunge pagina vuota per evitare eccezione
+            var page = this.mDocument.AddNewPage(PageSize.A4);
+
+            iText.Kernel.Pdf.Canvas.PdfCanvas pdfCanvas = new iText.Kernel.Pdf.Canvas.PdfCanvas(page);
+            var canvas = new Canvas(pdfCanvas, page.GetCropBox());
+            var p = new iText.Layout.Element.Paragraph(text);
+            if (alignCenter)
+                p.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
+            else
+                p.SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            p.SetMarginTop(margintop);
+            p.SetMarginLeft(marginleft);
+            canvas.Add(p);
+            canvas.Close();
+
+        }
+
         /// <summary>
         /// Avvia merge
         /// </summary>
@@ -170,7 +213,7 @@ namespace App.PdfUtils
             var w = new PdfWriter(outstream, wp);
             w.SetCloseStream(closeOnEndMerge);
             w.SetSmartMode(true);
-            
+
             this.mDocument = new PdfDocument(w);
             this.mMerge = new PdfMerger(this.mDocument);
 

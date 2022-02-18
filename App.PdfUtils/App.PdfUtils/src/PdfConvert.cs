@@ -31,8 +31,6 @@ namespace App.PdfUtils
         public void ImageBufferToPdfStream(byte[] image, Stream outPdfStream)
         {
 
-
-
             var wp = new WriterProperties().AddXmpMetadata().SetFullCompressionMode(true).SetPdfVersion(PdfVersion.PDF_1_4);
             var w = new PdfWriter(outPdfStream, wp);
             w.SetCloseStream(false);
@@ -80,10 +78,6 @@ namespace App.PdfUtils
                 imgPdf.SetFixedPosition(0, 0);
                 hlDoc.Add(imgPdf);
             }
-
-
-
-
 
 
             doc.Close();

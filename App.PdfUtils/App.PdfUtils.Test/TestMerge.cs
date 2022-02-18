@@ -20,6 +20,9 @@ namespace App.PdfUtils.Test
             pdfmerge.AddPdfFromBuffer(TestResources.TestPng);
             pdfmerge.AddPdfFromBuffer(TestResources.TestPng);
             pdfmerge.AddPdfFromBuffer(TestResources.TestPng);
+            pdfmerge.AddBlankPageWithText("Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! \nCiao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! ");
+
+            pdfmerge.AddPdfFromImageBuffer(TestResources.Prova);
 
             pdfmerge.EndMerge();
         }
