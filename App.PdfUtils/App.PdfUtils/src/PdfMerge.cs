@@ -191,6 +191,9 @@ namespace App.PdfUtils
             canvas.Add(p);
             canvas.Close();
 
+            this.NumPagesMerged++;
+            this.NumDocumentsMerged++;
+
         }
 
         /// <summary>
@@ -237,7 +240,7 @@ namespace App.PdfUtils
             this.checkMerge();
 
             //Se non ci sono pagine ne crea una vuota
-            if (this.NumDocumentsMerged <= 0)
+            if (this.NumDocumentsMerged <= 0 && this.NumPagesMerged <= 0)
             {
                 //Aggiunge pagina vuota per evitare eccezione
                 this.mDocument.AddNewPage(PageSize.A4);
