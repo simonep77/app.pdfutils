@@ -26,5 +26,25 @@ namespace App.PdfUtils.Test
 
             pdfmerge.EndMerge();
         }
+
+
+        [TestMethod]
+        public void Test2()
+        {
+
+            var pdfmerge = new PdfMerge();
+            pdfmerge.BeginMergeToFile(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "TestMerge.pdf"));
+            pdfmerge.SetPdfInfo("Merge 1", "Simone pelaia", "Merge");
+
+            pdfmerge.AddPdfFromFile(@"C:\Users\simone.pelaia\Desktop\Fattura estero con dettaglio.pdf");
+            pdfmerge.AddPdfFromBuffer(TestResources.TestPng);
+            pdfmerge.AddPdfFromBuffer(TestResources.TestPng);
+            pdfmerge.AddPdfFromBuffer(TestResources.TestPng);
+            pdfmerge.AddBlankPageWithText("Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! \nCiao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! Ciao Simone!!!! ");
+
+            pdfmerge.AddPdfFromImageBuffer(TestResources.Prova);
+
+            pdfmerge.EndMerge();
+        }
     }
 }

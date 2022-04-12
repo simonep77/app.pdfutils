@@ -155,7 +155,20 @@ namespace App.PdfUtils
             if (pages == null || pages.Length == 0)
             {
                 var totPages = doc.GetNumberOfPages();
-                this.mMerge.Merge(doc, 1, totPages);
+
+                for (int i = 1; i <= totPages; i++)
+                {
+                    try
+                    {
+                        this.mMerge.Merge(doc, i, i);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine($"{nameof(PdfUtils.PdfMerge)} - Errore merge in pagina {i} di {totPages}: {e.Message}");
+                        this.AddBlankPageWithText($"Si è verificato un errore nella lettura della pagina {i} di {totPages}. Il documento potrebbe non essere completo.");
+                    }
+                }
+
                 this.NumPagesMerged += totPages;
             }
             else
