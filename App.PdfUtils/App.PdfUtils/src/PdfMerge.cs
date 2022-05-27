@@ -142,7 +142,7 @@ namespace App.PdfUtils
         /// <param name="pages"></param>
         public void AddPdfFromReader(PdfReader reader, params int[] pages)
         {
-            this.AddPdfFromDocument(new PdfDocument(reader));
+            this.AddPdfFromDocument(new PdfDocument(reader), pages);
         }
 
 
